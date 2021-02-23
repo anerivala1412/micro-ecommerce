@@ -5,12 +5,8 @@ import { Logger } from '@nestjs/common';
 const logger = new Logger('Product');
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice(AppModule, {
-    transport: Transport.TCP,
-    options: {
-      port: 4000,
-    },
-  });
-  await app.listen(() => logger.log('Microservice is listening'));
+  const app = await NestFactory.create(AppModule);
+  console.log('4000 Product + user');
+  await app.listen(4000);
 }
 bootstrap();

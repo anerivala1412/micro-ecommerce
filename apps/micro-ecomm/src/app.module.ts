@@ -1,31 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
-import { GraphQLFederationModule, GraphQLModule } from '@nestjs/graphql';
-import { AuthResolver } from './auth.resolver';
-import { ProductResolver } from 'apps/product/src/product.resolver';
-import { UserResolver } from 'apps/user/src/user.resolver';
-import { User } from 'apps/user/src/user.type';
-import { Product } from 'apps/product/src/product.type';
+import { GraphQLGatewayModule } from '@nestjs/graphql';
 @Module({
   imports: [
-    GraphQLFederationModule.forRoot({
-      autoSchemaFile: true,
-      buildSchemaOptions: {
-        orphanedTypes: [User,Product],
+    GraphQLGatewayModule.forRoot({
+      server: {
+        // ... Apollo server options
+        cors: true,
+      },
+      gateway: {
+        serviceList: [
+          { name: 'user', url: 'http://localhost:3001/graphql' },
+          { name: 'product', url: 'http://localhost:3002/graphql' },
+        ],
       },
     }),
-    // GraphqlDistributedModule.forRoot({
-    //   autoSchemaFile: 'graphs/demo.gql',
-
-    //   // optional orphaned types
-    //   buildSchemaOptions: {
-    //     orphanedTypes: [Product, User],
-    //   },
-
-    //   context: ctx => ctx,
-    // }),
   ],
   controllers: [],
-  providers: [AppService, AuthResolver, ProductResolver, UserResolver],
+  providers: [],
 })
 export class AppModule {}

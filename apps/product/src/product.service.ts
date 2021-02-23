@@ -6,4 +6,7 @@ export class ProductService {
   private client: ClientProxy;
 
   constructor() {}
+  getAll(){
+    return ['a','b']
+  }
 }
