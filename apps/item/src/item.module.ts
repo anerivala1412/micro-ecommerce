@@ -6,7 +6,7 @@ import { join } from 'path';
 @Module({
   imports: [
     GraphQLFederationModule.forRoot({
-      typePaths: ['**/*.graphql'],
+      autoSchemaFile: join(process.cwd(), 'item.gql'),
     }),
   ],
   controllers: [],
