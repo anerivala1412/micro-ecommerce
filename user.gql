@@ -12,10 +12,10 @@ directive @requires(fields: String!) on FIELD_DEFINITION
 
 directive @provides(fields: String!) on FIELD_DEFINITION
 
-type Item {
+type User {
   id: ID!
 }
 
 type Query {
-  getItem: Item!
+  getUser: User!
 }
